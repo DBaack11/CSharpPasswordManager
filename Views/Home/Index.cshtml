@@ -1,0 +1,80 @@
+﻿@model List<Account>
+@{
+    ViewBag.Title = "My Accounts";
+}
+
+<nav class="navbar navbar-light light-blue lighten-4">
+
+     @*Navbar brand 
+    <a class="navbar-brand" href="#">Navbar</a>*@
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+            aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="dark-blue-text">
+            <i class="fas fa-bars fa-1x"></i>
+        </span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="Index">Home <span class="sr-only">(current)</span></a>
+            </li>
+            @*<li class="nav-item">
+                <a class="nav-link" href="../../Areas/Admin/Index">Admin Home</a>
+            </li>*@
+
+
+        </ul>
+        <!-- Links -->
+
+    </div>
+    <!-- Collapsible content -->
+
+</nav>
+
+<h2>Account List</h2>
+
+<a asp-controller="Account" asp-action="Add" class="btn btn-primary">Add Account</a>
+<br />
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Resource</th>
+            <th>Link</th>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var account in Model)
+        {
+            <tr>
+                <td>@account.Resource</td>
+                <td><a href=@account.Link target="_blank">@account.Link</a></td>
+                <td>@account.Email</td>
+                <td>@account.Username</td>
+                <td>@{
+                    string password = @account.Password;
+
+                    string protectedPassword = new string ('#', password.Length);
+
+                    }
+                    <a href="#" title="Show Password" onclick="alert('Password: @password');">@protectedPassword</a>
+                </td>
+                <td>
+                    <a asp-controller="Account" asp-action="Edit" class="btn btn-outline-secondary"
+                       asp-route-id="@account.AccountId">Edit</a>
+                    <a asp-controller="Account" asp-action="Delete" class="btn btn-outline-secondary"
+                       asp-route-id="@account.AccountId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
