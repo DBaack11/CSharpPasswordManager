@@ -19,6 +19,7 @@ namespace CSharpFinal_PasswordManager.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            
             ViewBag.Action = "Add";
             return View("Edit", new Account());
         }
@@ -28,6 +29,7 @@ namespace CSharpFinal_PasswordManager.Controllers
         {
             ViewBag.Action = "Edit";
             var account = context.Accounts.Find(id);
+            
             return View(account);
         }
 
@@ -36,9 +38,11 @@ namespace CSharpFinal_PasswordManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                account.setAccountUser(User.Identity.Name);
                 if (account.AccountId == 0)
                 {
                     context.Accounts.Add(account);
+                    
                 }
                 else
                 {

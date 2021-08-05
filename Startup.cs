@@ -2,6 +2,7 @@ using CSharpFinal_PasswordManager.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,7 @@ namespace CSharpFinal_PasswordManager
         {
             services.AddControllersWithViews();
             services.AddDbContext<AccountContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AccountContext")));
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AccountContext>().AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +49,7 @@ namespace CSharpFinal_PasswordManager
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

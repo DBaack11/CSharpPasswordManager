@@ -4,14 +4,16 @@ using CSharpFinal_PasswordManager.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CSharpFinal_PasswordManager.Migrations
 {
     [DbContext(typeof(AccountContext))]
-    partial class AccountContextModelSnapshot : ModelSnapshot
+    [Migration("20210804231114_AddIdentityTables")]
+    partial class AddIdentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +27,6 @@ namespace CSharpFinal_PasswordManager.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AccountUser")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -56,7 +55,6 @@ namespace CSharpFinal_PasswordManager.Migrations
                         new
                         {
                             AccountId = 1,
-                            AccountUser = "",
                             Email = "Test@Test.com",
                             Link = "Test",
                             Password = "Test",
@@ -66,7 +64,6 @@ namespace CSharpFinal_PasswordManager.Migrations
                         new
                         {
                             AccountId = 2,
-                            AccountUser = "",
                             Email = "dfbaack@dmacc.edu",
                             Link = "https://www.dmacc.edu/Pages/welcome.aspx",
                             Password = "password",

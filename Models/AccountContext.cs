@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CSharpFinal_PasswordManager.Models
 {
-    public class AccountContext : DbContext
+    public class AccountContext : IdentityDbContext<User>
     {
         public AccountContext(DbContextOptions<AccountContext> options) : base(options) { }
 
@@ -14,6 +15,8 @@ namespace CSharpFinal_PasswordManager.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Account>().HasData(
                 new Account
                 {
@@ -22,7 +25,8 @@ namespace CSharpFinal_PasswordManager.Models
                     Link = "Test",
                     Email = "Test@Test.com",
                     Username = "Test",
-                    Password = "Test"
+                    Password = "Test",
+                    AccountUser = ""
                 },
 
                 new Account
@@ -32,7 +36,8 @@ namespace CSharpFinal_PasswordManager.Models
                     Link = "https://www.dmacc.edu/Pages/welcome.aspx",
                     Email = "dfbaack@dmacc.edu",
                     Username = "dfbaack",
-                    Password = "password"
+                    Password = "password",
+                    AccountUser = ""
                 }
 
                 );

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace CSharpFinal_PasswordManager.Models
 {
     public class Account
@@ -23,5 +24,12 @@ namespace CSharpFinal_PasswordManager.Models
         [Required(ErrorMessage = "Please enter the password associated with this account.")]
         public String Password { get; set; }
 
+        public String AccountUser { get; set; }
+
+        public void setAccountUser(string userName)
+        {
+            this.AccountUser = userName;
+        }
     }
 }
+

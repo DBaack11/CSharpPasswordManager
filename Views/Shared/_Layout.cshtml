@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CSharpFinal_PasswordManager</title>
+    <title>@ViewData["Title"] Password Manager</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CSharpFinal_PasswordManager</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Password Manager</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,9 +21,37 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        </li>*@
+                    
+                        @using Microsoft.AspNetCore.Identity
+                        @inject SignInManager<User> signInManager
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <form method="post" asp-action="Logout" asp-controller="User" asp-area="">
+                                    <input type="submit" value="Log Out" class="btn btn-outline-dark" />
+                              
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            var action = ViewContext.RouteData.Values["action"]?.ToString();
+                    
+                        
+                            <li class="nav-item" style="padding-right:5px; padding-left:5px;">
+
+                                <a asp-action="Register" asp-controller="User" asp-area="" class="btn btn btn-outline-dark">Register</a>
+                            </li>
+
+                            <li class="nav-item" style="padding-left: 5px;">
+                                <a asp-action="Login" asp-controller="User" asp-area="" class="btn btn-outline-dark">Log In</a>
+                            </li>
+                    
+                        }
+                    
                     </ul>
                 </div>
             </div>
@@ -37,7 +65,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - CSharpFinal_PasswordManager - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - Password Manager - Devin Baack <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
