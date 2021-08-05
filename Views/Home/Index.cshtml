@@ -9,9 +9,10 @@
 {
 
 
-    <h2>@User.Identity.Name's Account List</h2>
-
+    <h2><u>@User.Identity.Name's Account List</u></h2>
+    <br />
 <a asp-controller="Account" asp-action="Add" class="btn btn-primary">Add Account</a>
+<br />
 <br />
 <table class="table table-bordered table-striped">
     <thead>
@@ -45,7 +46,7 @@
             </td>
             <td>
                 <a asp-controller="Account" asp-action="Edit" class="btn btn-outline-secondary"
-                   asp-route-id="@account.AccountId">Edit</a>
+                   asp-route-id="@account.AccountId" asp-route-password="@account.Password">Edit</a>
                 <a asp-controller="Account" asp-action="Delete" class="btn btn-outline-secondary"
                    asp-route-id="@account.AccountId">Delete</a>
             </td>

@@ -29,6 +29,7 @@ namespace CSharpFinal_PasswordManager
             services.AddControllersWithViews();
             services.AddDbContext<AccountContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AccountContext")));
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AccountContext>().AddDefaultTokenProviders();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +47,7 @@ namespace CSharpFinal_PasswordManager
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthentication();

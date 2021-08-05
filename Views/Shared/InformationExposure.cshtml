@@ -1,0 +1,56 @@
+﻿@using EnzoicClient
+@model Account
+
+
+@{
+    Enzoic enzoic = new Enzoic("a49513c41c294db080e156a57676e899", "dXtJVmK=k+W^HzQHuPdyzafUYd+n!HM@");
+
+    string password = ViewBag.Password;
+    string email = ViewBag.Email;
+
+    ExposuresResponse exposures = enzoic.GetExposuresForUser(email);
+    ExposureDetails details = null;
+    if (exposures.Count > 0)
+    {
+        details = enzoic.GetExposureDetails(exposures.Exposures[0]);
+    }
+
+}
+
+<h2><u>Password</u></h2>
+<br />
+@if (enzoic.CheckPassword(password))
+{
+    <h2>Your password is COMPROMISED.</h2>
+    <h5>
+        <br />
+        Utilizing the databases and data indexes of the security company Enzoic,
+        your password was found in data exposures and/or common password cracking dictionaries.
+    </h5>
+    <h5> <br /> For a strong, safe password to secure your information, please refer to the <a href="https://www.enzoic.com/strong-password/" target="_blank"> Strong Password Guidelines</a>.</h5>
+}
+else
+{
+    <h2>Your password is NOT COMPROMISED</h2>
+    <h5>
+        Following the guidelines of a strong password, your password was not found in any data exposures and common password cracking dictionaries indexed by the security company, Enzoic.
+    </h5>
+
+}
+<br />
+<h2><u>Email</u></h2>
+@if (exposures.Count > 0)
+{
+    <h2>Your email is EXPOSED.</h2>
+    <h5>Utilizing the databases and data indexes of the security company Enzoic, your email was found in data exposure(s).</h5>
+    <h5>Your email was last compromised on @details.DateAdded</h5>
+}
+else
+{
+    <h2>Your email is NOT EXPOSED.</h2>
+    <br />
+    <h5>Utilizing the databases and data indexes of the security company Enzoic, your email was found in data exposure(s).</h5>
+}
+<br />
+<br />
+<a class="btn btn-primary" href="javascript:history.back()">Go Back</a>

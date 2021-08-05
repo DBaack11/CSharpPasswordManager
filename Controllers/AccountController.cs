@@ -1,4 +1,5 @@
 ﻿using CSharpFinal_PasswordManager.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ namespace CSharpFinal_PasswordManager.Controllers
     public class AccountController : Controller
     {
         private AccountContext context { get; set; }
+
+        public Account currentAccount { get; set; }
 
         public AccountController(AccountContext ctx)
         {
@@ -28,8 +31,11 @@ namespace CSharpFinal_PasswordManager.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.Action = "Edit";
+            
             var account = context.Accounts.Find(id);
             
+            HttpContext.Session.SetString("Password", account.Password.ToString());
+            HttpContext.Session.SetString("Email", account.Email.ToString());
             return View(account);
         }
 
@@ -39,6 +45,8 @@ namespace CSharpFinal_PasswordManager.Controllers
             if (ModelState.IsValid)
             {
                 account.setAccountUser(User.Identity.Name);
+                
+                
                 if (account.AccountId == 0)
                 {
                     context.Accounts.Add(account);
@@ -73,5 +81,21 @@ namespace CSharpFinal_PasswordManager.Controllers
             context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
+
+        
+        public IActionResult InformationExposure()
+        {
+            ViewBag.Password = HttpContext.Session.GetString("Password");
+            ViewBag.Email = HttpContext.Session.GetString("Email");
+            return View();
+        }
+
+        public IActionResult PasswordStrength()
+        {
+            ViewBag.Password = HttpContext.Session.GetString("Password");
+            return View();
+        }
+
+       
     }
 }

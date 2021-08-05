@@ -23,5 +23,7 @@ namespace CSharpFinal_PasswordManager.Controllers
             var accounts = context.Accounts.OrderBy(a => a.Resource).ToList();
             return View(accounts);
         }
+
+        
     }
 }
