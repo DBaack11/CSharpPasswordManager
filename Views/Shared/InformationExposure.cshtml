@@ -18,7 +18,6 @@
 }
 
 <h2><u>Password</u></h2>
-<br />
 @if (enzoic.CheckPassword(password))
 {
     <h2>Your password is COMPROMISED.</h2>
@@ -31,7 +30,8 @@
 }
 else
 {
-    <h2>Your password is NOT COMPROMISED</h2>
+    <h2>Your password is NOT COMPROMISED.</h2>
+    <br />
     <h5>
         Following the guidelines of a strong password, your password was not found in any data exposures and common password cracking dictionaries indexed by the security company, Enzoic.
     </h5>
@@ -42,6 +42,7 @@ else
 @if (exposures.Count > 0)
 {
     <h2>Your email is EXPOSED.</h2>
+    <br />
     <h5>Utilizing the databases and data indexes of the security company Enzoic, your email was found in data exposure(s).</h5>
     <h5>Your email was last compromised on @details.DateAdded</h5>
 }
