@@ -6,12 +6,16 @@
 
 <h2><u>@ViewBag.Title</u></h2>
 <br />
-<h5 style="display: inline">Is My Information Compromised?</h5> <a asp-controller="Account" asp-action="InformationExposure" class="btn btn-primary">Check Information Exposure</a>
+@if (title == "Edit Account")
+{
+    <h5 style="display: inline">Is My Information Compromised?</h5> <a asp-controller="Account" asp-action="InformationExposure" class="btn btn-primary">Check Information Exposure</a>
 
-<br />
-<br />
-<h5 style="display: inline">Is My Password Strong?</h5> <a asp-controller="Account" asp-action="PasswordStrength" class="btn btn-primary">Check Password Strength</a>
-<br />
+    <br />
+    <br />
+    <h5 style="display: inline">Is My Password Strong?</h5> <a asp-controller="Account" asp-action="PasswordStrength" class="btn btn-primary">Check Password Strength</a>
+    <br />
+}
+
 <form asp-action="Edit" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
 
